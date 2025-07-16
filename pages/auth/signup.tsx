@@ -15,8 +15,12 @@ export default function Signup() {
     try {
       await registerUser(email, password);
       router.push("/auth/login");
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Something went wrong.");
+      }
     }
   };
 
