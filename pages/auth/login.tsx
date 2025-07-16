@@ -15,8 +15,12 @@ export default function Login() {
     try {
       await loginUser(email, password);
       router.push("/dashboard");
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Something went wrong.");
+      }
     }
   };
 
