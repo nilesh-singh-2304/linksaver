@@ -60,13 +60,6 @@ export default function DashboardClient() {
     }
     setLoading(false);
   };
-/*************  ✨ Windsurf Command ⭐  *************/
-  /**
-   * Deletes a bookmark at a given index from the bookmarks array and saves
-   * the updated array to local storage.
-   * @param {number} idx The index of the bookmark to delete.
-   */
-/*******  0c9c6cb2-4ffc-4555-a262-a9e72ff505c2  *******/
   const handleDelete = (idx: number) => {
     const updated = bookmarks.filter((_, i) => i !== idx);
     setBookmarks(updated);
