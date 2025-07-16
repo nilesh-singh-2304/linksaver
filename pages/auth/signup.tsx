@@ -14,7 +14,7 @@ export default function Signup() {
     e.preventDefault();
     try {
       await registerUser(email, password);
-      router.push("/login");
+      router.push("/auth/login");
     } catch (err: any) {
       setError(err.message);
     }
@@ -62,7 +62,7 @@ export default function Signup() {
         <p className="text-sm text-center mt-6 text-zinc-300">
           Already have an account?{" "}
           <Link
-            href="/login"
+            href="/auth/login"
             className="text-blue-400 hover:underline transition"
           >
             Log In
