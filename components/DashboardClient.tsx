@@ -9,6 +9,7 @@ import {
 import BookmarkCard from "@/components/BookmarkCard";
 import { getMetadata, getSummary } from "@/lib/metadata";
 import { logout } from "@/lib/auth";
+import { motion } from "framer-motion";
 
 type Bookmark = {
   url: string;
@@ -32,7 +33,7 @@ export default function DashboardClient() {
 
     const u = localStorage.getItem("link-saver-session");
     if (!u) {
-      window.location.href = "/auth/login";
+      window.location.href = "/login";
     } else {
       setUser(u);
     }
@@ -59,7 +60,8 @@ export default function DashboardClient() {
     }
     setLoading(false);
   };
-
+/*************  ✨ Windsurf Command ⭐  *************/
+/*******  0c9c6cb2-4ffc-4555-a262-a9e72ff505c2  *******/
   const handleDelete = (idx: number) => {
     const updated = bookmarks.filter((_, i) => i !== idx);
     setBookmarks(updated);
@@ -84,55 +86,68 @@ export default function DashboardClient() {
   if (!user) return null;
 
   return (
-    <div className="min-h-screen p-4 bg-gray-100 dark:bg-zinc-900 text-black dark:text-white">
-      <div className="max-w-2xl mx-auto space-y-6">
-        <div className="flex justify-between items-center">
-          <h1 className="text-2xl font-bold">Welcome, {user}</h1>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => {
-                logout();
-                window.location.href = "/auth/login";
-              }}
-              className="text-sm text-red-600 hover:underline"
-            >
-              Logout
-            </button>
-          </div>
-        </div>
+    <div className="min-h-screen p-4 bg-zinc-950 text-white">
+      <div className="max-w-3xl mx-auto space-y-8">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="flex justify-between items-center"
+        >
+          <h1 className="text-3xl font-bold">Welcome, {user}</h1>
+          <button
+            onClick={() => {
+              logout();
+              window.location.href = "/login";
+            }}
+            className="text-sm text-red-400 hover:underline"
+          >
+            Logout
+          </button>
+        </motion.div>
 
-        <div className="space-y-2">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+          className="space-y-3"
+        >
           <input
             type="text"
             placeholder="Paste URL..."
-            className="w-full p-2 border rounded text-black"
+            className="w-full p-3 rounded-lg bg-zinc-800 border border-zinc-600 focus:ring-2 focus:ring-blue-500 outline-none"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
           />
           <input
             type="text"
             placeholder="Optional Tag (e.g., AI, News)"
-            className="w-full p-2 border rounded text-black"
+            className="w-full p-3 rounded-lg bg-zinc-800 border border-zinc-600 focus:ring-2 focus:ring-blue-500 outline-none"
             value={tag}
             onChange={(e) => setTag(e.target.value)}
           />
           <button
             onClick={handleAdd}
             disabled={loading}
-            className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
+            className="w-full p-3 bg-blue-600 hover:bg-blue-700 rounded-lg font-medium transition"
           >
             {loading ? "Saving..." : "Save Bookmark"}
           </button>
-        </div>
+        </motion.div>
 
         {tags.length > 0 && (
-          <div className="flex gap-2 flex-wrap mt-2">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            className="flex gap-2 flex-wrap"
+          >
             <button
               onClick={() => setFilter("")}
-              className={`px-3 py-1 rounded text-sm ${
+              className={`px-3 py-1 rounded-full text-sm ${
                 !filter
-                  ? "bg-black text-white"
-                  : "bg-gray-200 dark:bg-zinc-700"
+                  ? "bg-blue-500 text-white"
+                  : "bg-zinc-800 border border-zinc-600"
               }`}
             >
               All
@@ -141,25 +156,28 @@ export default function DashboardClient() {
               <button
                 key={i}
                 onClick={() => setFilter(t!)}
-                className={`px-3 py-1 rounded text-sm ${
+                className={`px-3 py-1 rounded-full text-sm ${
                   filter === t
-                    ? "bg-black text-white"
-                    : "bg-gray-200 dark:bg-zinc-700"
+                    ? "bg-blue-500 text-white"
+                    : "bg-zinc-800 border border-zinc-600"
                 }`}
               >
                 {t}
               </button>
             ))}
-          </div>
+          </motion.div>
         )}
 
         <DragDropContext onDragEnd={handleDrag}>
           <Droppable droppableId="bookmarks">
             {(provided) => (
-              <div
+              <motion.div
                 {...provided.droppableProps}
                 ref={provided.innerRef}
-                className="space-y-4"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
+                className="space-y-4 mt-4"
               >
                 {filtered.map((bm, idx) => (
                   <BookmarkCard
@@ -170,7 +188,7 @@ export default function DashboardClient() {
                   />
                 ))}
                 {provided.placeholder}
-              </div>
+              </motion.div>
             )}
           </Droppable>
         </DragDropContext>
