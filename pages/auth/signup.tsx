@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { registerUser } from "@/lib/auth";
@@ -31,9 +33,11 @@ export default function Signup() {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="bg-zinc-900/60 backdrop-blur-lg shadow-2xl rounded-2xl p-8 w-full max-w-md border border-zinc-700"
+        className="bg-zinc-900/70 backdrop-blur-lg shadow-xl rounded-2xl p-8 w-full max-w-md border border-zinc-700"
       >
-        <h1 className="text-3xl font-semibold mb-6 text-center text-white">📝 Sign Up</h1>
+        <h1 className="text-3xl font-bold mb-6 text-center text-white">
+          📝 Sign Up
+        </h1>
 
         {error && (
           <p className="text-red-400 mb-4 text-sm text-center">{error}</p>
@@ -43,22 +47,24 @@ export default function Signup() {
           <input
             type="email"
             placeholder="Email"
-            className="w-full p-3 rounded-lg bg-zinc-800 border border-zinc-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            className="w-full p-3 rounded-lg bg-zinc-800 border border-zinc-600 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
           />
           <input
             type="password"
             placeholder="Password"
-            className="w-full p-3 rounded-lg bg-zinc-800 border border-zinc-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            className="w-full p-3 rounded-lg bg-zinc-800 border border-zinc-600 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
           />
         </div>
 
         <button
           type="submit"
-          className="mt-6 w-full p-3 rounded-lg bg-blue-600 hover:bg-blue-700 transition text-white font-medium"
+          className="mt-6 w-full p-3 rounded-lg bg-blue-600 hover:bg-blue-700 transition text-white font-semibold"
         >
           Register
         </button>

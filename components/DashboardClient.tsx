@@ -60,6 +60,7 @@ export default function DashboardClient() {
     }
     setLoading(false);
   };
+
   const handleDelete = (idx: number) => {
     const updated = bookmarks.filter((_, i) => i !== idx);
     setBookmarks(updated);
@@ -84,15 +85,15 @@ export default function DashboardClient() {
   if (!user) return null;
 
   return (
-    <div className="min-h-screen p-4 bg-zinc-950 text-white">
-      <div className="max-w-3xl mx-auto space-y-8">
+    <div className="min-h-screen px-4 sm:px-6 md:px-8 py-6 bg-zinc-950 text-white">
+      <div className="max-w-4xl mx-auto space-y-10">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="flex justify-between items-center"
+          className="flex flex-col sm:flex-row justify-between sm:items-center gap-4"
         >
-          <h1 className="text-3xl font-bold">Welcome, {user}</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold">Welcome, {user}</h1>
           <button
             onClick={() => {
               logout();
@@ -108,7 +109,7 @@ export default function DashboardClient() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.6 }}
-          className="space-y-3"
+          className="grid grid-cols-1 gap-4"
         >
           <input
             type="text"
@@ -138,7 +139,7 @@ export default function DashboardClient() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className="flex gap-2 flex-wrap"
+            className="flex flex-wrap gap-2"
           >
             <button
               onClick={() => setFilter("")}
@@ -175,7 +176,7 @@ export default function DashboardClient() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}
-                className="space-y-4 mt-4"
+                className="space-y-4"
               >
                 {filtered.map((bm, idx) => (
                   <BookmarkCard
